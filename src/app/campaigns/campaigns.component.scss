@@ -1,0 +1,55 @@
+.container {
+  margin-top: 10px;
+}
+.header {
+  text-align: center;
+}
+.rows {
+  text-align: center;
+}
+.fa,
+.far,
+.fal {
+  font-size: 17px;
+  line-height: 20px;
+}
+.inner-addon {
+  position: relative;
+}
+
+/* style icon */
+.inner-addon i {
+  position: absolute;
+  padding: 10px;
+  color: #acb6c3;
+  cursor: pointer;
+}
+.icon {
+  color: #acb6c3;
+  width: 40px;
+  text-align: center;
+  font-size: 17px;
+  padding: 12px;
+}
+/* align icon */
+.right-addon i {
+  right: 10px;
+}
+
+/* add padding  */
+.right-addon input {
+  padding-right: 30px;
+}
+.selected {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}

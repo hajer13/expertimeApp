@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <form [formGroup]="searchForm">
+        <div class="inner-addon right-addon">
+          <i (click)="searchActionClicked()" class="fa fa-search icon"></i>
+          <input
+            tabindex="1"
+            id="searchPanel"
+            formControlName="search"
+            type="text"
+            class="form-control"
+            (change)="searchActionClicked()"
+            (keyup)="searchActionClicked()"
+          />
+        </div>
+      </form>
+    </div>
+    <div class="col-6">
+      <form [formGroup]="brandsForm">
+        <select
+          formControlName="brands"
+          (change)="listFilter()"
+          class="selected"
+        >
+          <option *ngFor="let b of brands" [value]="b.brandId">
+            {{ b.name }}
+          </option>
+        </select>
+      </form>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <th *ngFor="let column of headers" class="header">
+        {{ column }}
+      </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requestList" class="rows">
+        <td>
+          {{ request.requestStatus }}
+        </td>
+        <td>
+          {{ request.campaignName }}
+        </td>
+        <td>
+          <span
+            [ngClass]="
+              request.type == 'Advice'
+                ? 'badge bg-danger'
+                : 'badge bg-secondary'
+            "
+          >
+            {{ request.type }}</span
+          >
+        </td>
+        <td>
+          {{ request.brand }}
+        </td>
+        <td>
+          {{ request.submission | date }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
