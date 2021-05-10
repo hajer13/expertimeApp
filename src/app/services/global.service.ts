@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class GlobalService {
+  requestListSub = new BehaviorSubject([]);
   constructor() {}
 
   public messages = {
@@ -12,6 +14,10 @@ export class GlobalService {
     type: "Type",
     brand: "Brand",
     submission: " Submission",
+    required: " Le champ est obligatoire",
+    campaignName: "Campaign name",
+    media: "Media",
+    deadline: "Deadline for decision",
   };
   public brands = [
     {
@@ -101,6 +107,39 @@ export class GlobalService {
     {
       brandId: 22,
       name: "Brand 22",
+    },
+  ];
+
+  public mediaTypes: Array<any> = [
+    {
+      mediaId: 1,
+      name: "LABELING_PACKAGING",
+      value: "Labeling/Packaging",
+    },
+    {
+      mediaId: 2,
+      name: "NEW_PRODUCT_INNOVATION",
+      value: "New Product/innovation",
+    },
+    {
+      mediaId: 3,
+      name: "OOH",
+      value: "OOH",
+    },
+    {
+      mediaId: 6,
+      name: "PROMOTIONS",
+      value: "Promotions",
+    },
+    {
+      mediaId: 7,
+      name: "RADIO",
+      value: "Radio",
+    },
+    {
+      mediaId: 12,
+      name: "COLLABORATION",
+      value: "Collaboration",
     },
   ];
 }

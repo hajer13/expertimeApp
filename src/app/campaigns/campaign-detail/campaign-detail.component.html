@@ -1,1 +1,99 @@
-<p>campaign-detail works!</p>
+<!-- Detail Form -->
+<div class="card-body">
+  <form [formGroup]="infoForm" #f="ngForm">
+    <div class="row">
+      <label for="brand" class="col-12 col-sm-12 col-form-label"
+        >{{ labels.brand }}*</label
+      >
+      <div class="col-12 col-sm-12">
+        <select
+          formControlName="brand"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && ctr.brand.errors }"
+          id="brand"
+        >
+          <option value="null" disabled="true">
+            {{ labels.brand }}
+          </option>
+          <option *ngFor="let b of brands" [value]="b.brandId">
+            {{ b.name }}
+          </option>
+        </select>
+        <div *ngIf="submitted && ctr.brand.errors" class="invalid-feedback">
+          <div *ngIf="ctr.brand.errors.required">
+            {{ labels.required }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <label for="name" class="col-12 col-sm-12 col-form-label"
+        >{{ labels.campaignName }} *</label
+      >
+      <div class="col-12 col-sm-12">
+        <input
+          type="text"
+          formControlName="campaignName"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': submitted && ctr.campaignName.errors
+          }"
+        />
+        <div
+          *ngIf="submitted && ctr.campaignName.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="ctr.campaignName.errors.required">
+            {{ labels.required }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <label for="media" class="col-12 col-sm-12 col-form-label"
+        >{{ labels.media }}*</label
+      >
+      <div *ngFor="let data of mediaList; let i = index">
+        <label>
+          <input
+            type="checkbox"
+            [value]="data.mediaId"
+            (change)="onChange(data.mediaId, $event.target.checked)"
+          />
+          {{ data.value }}
+        </label>
+        <div
+          *ngIf="submitted && infoForm.controls['mediaArray'].errors?.required"
+          class="invalid-feedback"
+        >
+          {{ labels.required }}
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <label for="date" class="col-12 col-sm-12 col-form-label"
+        >{{ labels.deadline }}*</label
+      >
+      <input
+        [bsConfig]="{
+          containerClass: 'theme-dark-blue'
+        }"
+        [ngClass]="{
+          'is-invalid': submitted && ctr.deadline.errors
+        }"
+        bsDatepicker
+        class="calender form-control"
+        formControlName="deadline"
+        type="text"
+      />
+      <div *ngIf="submitted && ctr.deadline.errors" class="invalid-feedback">
+        <div *ngIf="ctr.deadline.errors.required">
+          {{ labels.required }}
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

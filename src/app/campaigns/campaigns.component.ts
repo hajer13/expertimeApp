@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subject } from "rxjs";
 import * as data from "../payload.json";
 import { GlobalService } from "../services/global.service";
 
@@ -8,7 +10,8 @@ import { GlobalService } from "../services/global.service";
   templateUrl: "./campaigns.component.html",
   styleUrls: ["./campaigns.component.scss"],
 })
-export class CampaignsComponent implements OnInit {
+export class CampaignsComponent implements OnInit, OnDestroy {
+  private _destroyed$ = new Subject();
   public requestList = [];
   brands: any;
   public messages: any;
@@ -18,7 +21,9 @@ export class CampaignsComponent implements OnInit {
   requests = [];
   constructor(
     private globalService: GlobalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.searchForm = this.formBuilder.group({
       search: [""],
@@ -39,8 +44,8 @@ export class CampaignsComponent implements OnInit {
   ngOnInit(): void {
     this.requests = data.requests.map((item) => this.parseRequest(item));
     this.requestList = this.requests;
+    this.globalService.requestListSub.next(this.requests);
     this.brands = this.globalService.brands;
-    console.log(this.brands);
   }
   parseRequest(request): any {
     let parsedRequest = {
@@ -55,6 +60,8 @@ export class CampaignsComponent implements OnInit {
         : request.createdDate
         ? request.createdDate
         : request.updatedDate,
+      decisionDeadline: request.decisionDeadline,
+      media: request.media,
     };
     return parsedRequest;
   }
@@ -84,5 +91,13 @@ export class CampaignsComponent implements OnInit {
 
   performFilter(filterBy: string) {
     return this.requests.filter((item) => item.brandId == filterBy);
+  }
+
+  goToDetails(id) {
+    this.router.navigate([`${id}`], { relativeTo: this.route });
+  }
+  ngOnDestroy(): void {
+    this._destroyed$.next(true);
+    this._destroyed$.unsubscribe();
   }
 }

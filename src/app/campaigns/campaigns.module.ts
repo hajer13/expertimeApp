@@ -5,6 +5,7 @@ import { CampaignsRoutingModule } from "./campaigns-routing.module";
 import { CampaignsComponent } from "./campaigns.component";
 import { CampaignDetailComponent } from "./campaign-detail/campaign-detail.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 
 @NgModule({
   declarations: [CampaignsComponent, CampaignDetailComponent],
@@ -13,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     FormsModule,
     ReactiveFormsModule,
     CampaignsRoutingModule,
+    BsDatepickerModule.forRoot(),
   ],
 })
 export class CampaignsModule {}
